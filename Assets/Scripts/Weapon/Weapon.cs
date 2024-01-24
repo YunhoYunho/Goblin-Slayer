@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public int damage;
     [HideInInspector]
     public Collider coll;
 
@@ -21,11 +20,5 @@ public class Weapon : MonoBehaviour
     public void DisableWeapon()
     {
         coll.enabled = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        IHittable hittable = other.GetComponent<IHittable>();
-        hittable?.TakeHit(damage);
     }
 }
