@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMover : MonoBehaviour
 {
-    private PlayerAttacker attacker;
+    private SwordAttacker attacker;
     private Animator anim;
     private CharacterController controller;
     private float moveY;
@@ -28,7 +28,7 @@ public class PlayerMover : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
-        attacker = GetComponent<PlayerAttacker>();
+        attacker = GetComponent<SwordAttacker>();
     }
 
     private void Start()
