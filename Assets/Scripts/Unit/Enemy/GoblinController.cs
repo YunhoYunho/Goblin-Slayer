@@ -153,6 +153,5 @@ public class GoblinController : MonoBehaviour
         agent.isStopped = true;
         agent.enabled = false;
         anim.SetBool("IsAttack", false);
-        anim.SetTrigger("OnDeath");
     }
 }

@@ -7,6 +7,13 @@ public class EnemyHealth : UnitHealth
     [SerializeField]
     private EnemyData enemyData;
 
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -29,5 +36,16 @@ public class EnemyHealth : UnitHealth
     public override void Die()
     {
         base.Die();
+
+        anim.SetTrigger("OnDeath");
+
+        StartCoroutine(ReturnToPool());
+    }
+
+    private IEnumerator ReturnToPool()
+    {
+        yield return new WaitForSeconds(3f);
+
+        PoolManager.Instance.Release(gameObject);
     }
 }
