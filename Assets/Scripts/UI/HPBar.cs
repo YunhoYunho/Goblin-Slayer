@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HPBar : MonoBehaviour
 {
     [SerializeField]
-    private EnemyHealth health;
+    private UnitHealth health;
 
     private Slider slider;
 
@@ -15,10 +15,14 @@ public class HPBar : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         slider.maxValue = health.HP;
         slider.value = health.HP;
+    }
+
+    private void Start()
+    {
         health.OnHPChanged.AddListener((hp) => { slider.value = hp; });
     }
 }

@@ -36,17 +36,37 @@ public class GoblinController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
-    private void SetUP(EnemyData enemyData)
+    private void OnEnable()
     {
-        agent.speed = enemyData.speed;
-        traceDist = enemyData.traceDist;
-        attackDist = enemyData.attackDist;
+        ResetState();
+        StartCoroutine(UpdateRoutine());
+        StartCoroutine(StateRoutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(UpdateRoutine());
+        StopCoroutine(StateRoutine());
+    }
+
+    private void ResetState()
+    {
+        state = State.Idle;
+        agent.enabled = true;
+        agent.isStopped = false;
+        anim.SetBool("IsTrace", false);
+        anim.SetBool("IsAttack", false);
+
+        Collider[] colliders = GetComponents<Collider>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = true;
+        }
     }
 
     private void Start()
     {
-        StartCoroutine(UpdateRoutine());
-        StartCoroutine(StateRoutine());
+        
     }
 
     private void Update()

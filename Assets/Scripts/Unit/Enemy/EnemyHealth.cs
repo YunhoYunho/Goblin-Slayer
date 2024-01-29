@@ -22,12 +22,6 @@ public class EnemyHealth : UnitHealth
         hp = initHP;
     }
 
-    public void SetUP(EnemyData enemyData)
-    {
-        initHP = enemyData.hp;
-        hp = enemyData.hp;
-    }
-
     public override void TakeHit(int damage)
     {
         base.TakeHit(damage);
@@ -38,6 +32,9 @@ public class EnemyHealth : UnitHealth
         base.Die();
 
         anim.SetTrigger("OnDeath");
+
+        initHP = enemyData.hp;
+        hp = enemyData.hp;
 
         StartCoroutine(ReturnToPool());
     }
