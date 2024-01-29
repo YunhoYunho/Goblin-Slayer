@@ -8,7 +8,7 @@ public abstract class UnitHealth : MonoBehaviour, IHittable
     [SerializeField]
     protected int initHP;
     [SerializeField]
-    public int hp;
+    protected int hp;
     public int HP { get { return hp; } protected set { hp = value; OnHPChanged?.Invoke(hp); } }
     public bool isDead { get; protected set; }
     public UnityEvent<int> OnHPChanged;
@@ -25,7 +25,6 @@ public abstract class UnitHealth : MonoBehaviour, IHittable
 
         if (HP <= 0 && !isDead)
         {
-            OnDied?.Invoke();
             Die();
         }
     }
@@ -48,6 +47,7 @@ public abstract class UnitHealth : MonoBehaviour, IHittable
 
     public virtual void Die()
     {
+        OnDied?.Invoke();
         isDead = true;
     }
 }
