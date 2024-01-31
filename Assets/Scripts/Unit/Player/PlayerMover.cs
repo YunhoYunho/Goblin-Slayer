@@ -5,12 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMover : MonoBehaviour
 {
-    private SwordAttacker attacker;
-    private Animator anim;
-    private CharacterController controller;
-    private float moveY;
-
     [Header("General")]
+    [SerializeField]
+    private Camera cam;
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
@@ -24,6 +21,12 @@ public class PlayerMover : MonoBehaviour
     [SerializeReference, Range(0f, 360f)]
     private float interActionAngle;
 
+    private SwordAttacker attacker;
+    private Animator anim;
+    private CharacterController controller;
+    private float moveY;
+    private bool isMove;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -31,57 +34,58 @@ public class PlayerMover : MonoBehaviour
         attacker = GetComponent<SwordAttacker>();
     }
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
     private void Update()
     {
-        Move();
-        Rotate();
-        Jump();
+        if (!GameManager.Instance.isMobile)
+        {
+            Move();
+            Rotate();
+        }
         InterAction();
         attacker.Attack();
     }
 
     private void Move()
     {
-        Vector3 fowardVec = new Vector3(Camera.main.transform.forward.x, 0f, Camera.main.transform.forward.z).normalized;
-        Vector3 rightVec = new Vector3(Camera.main.transform.right.x, 0f, Camera.main.transform.right.z).normalized;
-
         Vector3 moveInput = Vector3.forward * Input.GetAxis("Vertical") + Vector3.right * Input.GetAxis("Horizontal");
         if (moveInput.sqrMagnitude > 1f) moveInput.Normalize();
+        isMove = moveInput.magnitude != 0;
+        anim.SetBool("IsMove", isMove);
 
-        anim.SetFloat("XInput", Input.GetAxis("Horizontal"));
-        anim.SetFloat("YInput", Input.GetAxis("Vertical"));
+        if (isMove)
+        {
+            Vector3 forwardVec = new Vector3(cam.transform.forward.x, 0f, cam.transform.forward.z).normalized;
+            Vector3 rightVec = new Vector3(cam.transform.right.x, 0f, cam.transform.right.z).normalized;
+            Vector3 moveVec = forwardVec * moveInput.z + rightVec * moveInput.x;
+            controller.Move(moveVec * moveSpeed * Time.deltaTime);
 
-        Vector3 moveVec = fowardVec * moveInput.z + rightVec * moveInput.x;
-
-        controller.Move(moveVec * moveSpeed * Time.deltaTime);
-
-        anim.SetFloat("MoveSpeed", moveSpeed);
+            Quaternion lookRotation = Quaternion.LookRotation(moveVec);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.2f);
+        }
     }
 
     private void Rotate()
     {
-        transform.forward = new Vector3(Camera.main.transform.forward.x, 0f, Camera.main.transform.forward.z).normalized;
+        transform.forward = new Vector3(cam.transform.forward.x, 0f, cam.transform.forward.z).normalized;
     }
 
-    private void Jump()
+    public void Move(Vector2 inputDir)
     {
-        moveY += Physics.gravity.y * Time.deltaTime;
+        Vector2 moveInput = inputDir;
+        isMove = moveInput.magnitude != 0;
+        anim.SetBool("IsMove", isMove);
 
-        if (Input.GetButtonDown("Jump"))
+        if (isMove)
         {
-            moveY = jumpSpeed;
-        }
-        else if (controller.isGrounded && moveY < 0)
-        {
-            moveY = 0;
-        }
+            Vector3 forwardVec = new Vector3(cam.transform.forward.x, 0f, cam.transform.forward.z).normalized;
+            Vector3 rightVec = new Vector3(cam.transform.right.x, 0f, cam.transform.right.z).normalized;
 
-        controller.Move(Vector3.up * moveY * Time.deltaTime);
+            Vector3 moveVec = forwardVec * moveInput.y + rightVec * moveInput.x;
+            controller.Move(moveVec * moveSpeed * Time.deltaTime);
+
+            Quaternion lookRotation = Quaternion.LookRotation(moveVec);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.2f);
+        }
     }
 
     private void InterAction()
