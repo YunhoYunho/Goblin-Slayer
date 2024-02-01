@@ -24,6 +24,9 @@ public class EnemyHealth : UnitHealth
 
     public override void TakeHit(int damage)
     {
+        if (isDead)
+            return;
+
         base.TakeHit(damage);
     }
 

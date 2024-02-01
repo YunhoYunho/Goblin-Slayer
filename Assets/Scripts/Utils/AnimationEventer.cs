@@ -8,6 +8,8 @@ public class AnimationEventer : MonoBehaviour
     public UnityEvent OnAttackStart;
     public UnityEvent OnAttackHit;
     public UnityEvent OnAttackEnd;
+    public UnityEvent OnAttackSkill;
+    public UnityEvent OnBuffSkill;
 
     public void AttackStart()
     {
@@ -22,5 +24,15 @@ public class AnimationEventer : MonoBehaviour
     public void AttackEnd()
     {
         OnAttackEnd?.Invoke();
+    }
+
+    public void AttackSkill()
+    {
+        OnAttackSkill?.Invoke();
+    }
+
+    public void BuffSkill()
+    {
+        OnBuffSkill?.Invoke();
     }
 }
