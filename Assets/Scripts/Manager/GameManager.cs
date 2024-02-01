@@ -14,6 +14,8 @@ public class GameManager : SingleTon<GameManager>
     private GameObject joyStickUI;
     [SerializeField]
     private GameObject camControlUI;
+    [SerializeField]
+    private GameObject attackButtonUI;
 
     public bool isMobile = true;
     public bool isPaused = false;
@@ -27,6 +29,7 @@ public class GameManager : SingleTon<GameManager>
 
         joyStickUI.SetActive(isMobile);
         camControlUI.SetActive(isMobile);
+        attackButtonUI.SetActive(isMobile);
         freeLookJoyStick.Priority = isMobile ? 1 : 0;
         freeLookKeyBoard.Priority = !isMobile ? 1 : 0;
     }

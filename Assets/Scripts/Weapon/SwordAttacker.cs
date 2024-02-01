@@ -46,6 +46,11 @@ public class SwordAttacker : MonoBehaviour
         if (!Input.GetButtonDown("Fire1"))
             return;
 
+        OnAttack();
+    }
+
+    public void OnAttack()
+    {
         anim.SetTrigger("OnAttack");
     }
 
@@ -60,7 +65,7 @@ public class SwordAttacker : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             Vector3 dirToTarget = (colliders[i].transform.position - transform.position).normalized;
-            Vector3 rightDir = AngleToDir(transform.eulerAngles.y + attackAngle * 0.5f);
+            Vector3 rightDir = AngleUtils.AngleToDir(transform.eulerAngles.y + attackAngle * 0.5f);
 
             if (Vector3.Dot(transform.forward, dirToTarget) > Vector3.Dot(transform.forward, rightDir))
             {
@@ -104,30 +109,10 @@ public class SwordAttacker : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
 
-            Vector3 rightDir = AngleToDir(transform.eulerAngles.y + attackAngle * 0.5f);
-            Vector3 leftDir = AngleToDir(transform.eulerAngles.y - attackAngle * 0.5f);
+            Vector3 rightDir = AngleUtils.AngleToDir(transform.eulerAngles.y + attackAngle * 0.5f);
+            Vector3 leftDir = AngleUtils.AngleToDir(transform.eulerAngles.y - attackAngle * 0.5f);
             Debug.DrawRay(transform.position, rightDir * attackRange, Color.blue);
             Debug.DrawRay(transform.position, leftDir * attackRange, Color.blue);
         }
     }
-
-    private Vector3 AngleToDir(float angle)
-    {
-        float radian = angle * Mathf.Deg2Rad;
-        return new Vector3(Mathf.Sin(radian), 0, Mathf.Cos(radian));
-    }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (Time.time >= lastAttackTime + timeBetAttack)
-    //    {
-    //        UnitHealth target = other.GetComponent<UnitHealth>();
-
-    //        if (target != null)
-    //        {
-    //            lastAttackTime = Time.time;
-    //            target.TakeHit(damage);
-    //        }
-    //    }
-    //}
 }

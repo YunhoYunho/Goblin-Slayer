@@ -18,7 +18,8 @@ public class PlayerMover : MonoBehaviour
     private bool interActionGizmos;
     [SerializeField]
     private float interActionRange;
-    [SerializeReference, Range(0f, 360f)]
+    [SerializeField]
+    [Range(0f, 360f)]
     private float interActionAngle;
 
     private SwordAttacker attacker;
@@ -87,7 +88,7 @@ public class PlayerMover : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.2f);
         }
     }
-
+   
     private void InterAction()
     {
         if (!Input.GetButtonDown("InterAction"))
@@ -99,7 +100,7 @@ public class PlayerMover : MonoBehaviour
         {
             Vector3 dirToTarget =
                 (colliders[i].transform.position - transform.position).normalized;
-            Vector3 rightDir = AngleToDir(transform.eulerAngles.y + interActionAngle * 0.5f);
+            Vector3 rightDir = AngleUtils.AngleToDir(transform.eulerAngles.y + interActionAngle * 0.5f);
 
             if (Vector3.Dot(transform.forward, dirToTarget) >
                 Vector3.Dot(transform.forward, rightDir))
@@ -117,16 +118,10 @@ public class PlayerMover : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, interActionRange);
 
-            Vector3 rightDir = AngleToDir(transform.eulerAngles.y + interActionAngle * 0.5f);
-            Vector3 leftDir = AngleToDir(transform.eulerAngles.y - interActionAngle * 0.5f);
+            Vector3 rightDir = AngleUtils.AngleToDir(transform.eulerAngles.y + interActionAngle * 0.5f);
+            Vector3 leftDir = AngleUtils.AngleToDir(transform.eulerAngles.y - interActionAngle * 0.5f);
             Debug.DrawRay(transform.position, rightDir * interActionRange, Color.blue);
             Debug.DrawRay(transform.position, leftDir * interActionRange, Color.blue);
         }
-    }
-
-    private Vector3 AngleToDir(float angle)
-    {
-        float radian = angle * Mathf.Deg2Rad;
-        return new Vector3(Mathf.Sin(radian), 0, Mathf.Cos(radian));
     }
 }

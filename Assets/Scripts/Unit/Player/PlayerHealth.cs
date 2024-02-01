@@ -6,6 +6,7 @@ public class PlayerHealth : UnitHealth
 {
     [SerializeField]
     private PlayerData playerData;
+    public bool isInvincible;
 
     private Collider coll;
     private PlayerMover mover;
@@ -28,16 +29,15 @@ public class PlayerHealth : UnitHealth
         hp = initHP;
         mover.enabled = true;
         attacker.enabled = true;
+        isInvincible = false;
     }
 
     public override void TakeHit(int damage)
     {
-        base.TakeHit(damage);
-
-        if (isDead)
+        if (isDead || isInvincible)
             return;
 
-        anim.SetTrigger("OnTakeHit");
+        base.TakeHit(damage);
     }
 
     public override void RestoreHP(int amount)
