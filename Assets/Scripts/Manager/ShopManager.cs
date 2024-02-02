@@ -23,11 +23,6 @@ public class ShopManager : SingleTon<ShopManager>
     [SerializeField] 
     private TextMeshProUGUI coinUI;
 
-    private void OnEnable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-    }
-
     private void Start()
     {
         for (int i = 0; i < shopItemSlots.Length; i++)

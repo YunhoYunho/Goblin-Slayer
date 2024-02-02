@@ -9,23 +9,19 @@ public class GoblinController : MonoBehaviour
     public enum State { Idle, Trace, Attack, Die }
 
     [Header("General")]
-    [SerializeField]
-    private State state;
+    public State state;
     [SerializeField]
     private EnemyData enemyData;
     [SerializeField]
     private float traceDist;
     [SerializeField]
     private float attackDist;
-    private float damage;
 
     private EnemyHealth health;
     private NavMeshAgent agent;
     private Animator anim;
     private Transform enemyTr;
     private Transform playerTr;
-    private Coroutine updateRoutine;
-    private Coroutine stateRoutine;
 
     private void Awake()
     {
@@ -62,11 +58,6 @@ public class GoblinController : MonoBehaviour
         {
             colliders[i].enabled = true;
         }
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Update()

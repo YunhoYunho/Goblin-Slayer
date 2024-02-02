@@ -12,8 +12,6 @@ public class InventoryManager : SingleTon<InventoryManager>
     [SerializeField] 
     private InventorySlot[] inventorySlots;
     [SerializeField] 
-    private InventorySlot[] storageSlots;
-    [SerializeField] 
     private GameObject inventoryItemPrefab;
     [SerializeField] 
     private int maxStackedItem = 99;
@@ -21,11 +19,6 @@ public class InventoryManager : SingleTon<InventoryManager>
     private int selectedSlot = -1;
     private int slotCounts = 24;
     private List<GameObject> itemInSlotList = new List<GameObject>();
-
-    private void OnEnable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-    }
 
     private void Start()
     {

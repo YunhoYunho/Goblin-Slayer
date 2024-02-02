@@ -13,10 +13,6 @@ public class SwordAttacker : MonoBehaviour
     private WeaponData weaponData;
     [SerializeField]
     private int damage;
-    [SerializeField]
-    private float timeBetAttack = 0.5f;
-    [SerializeField]
-    private float lastAttackTime;
 
     [Space]
 

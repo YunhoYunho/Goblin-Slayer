@@ -9,8 +9,6 @@ public class CameraController : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     [SerializeField]
     private CinemachineFreeLook freeLook;
-    [SerializeField]
-    private float sensitivity = 1f;
 
     private Image camControlArea;
     private string mouseX = "Mouse X";

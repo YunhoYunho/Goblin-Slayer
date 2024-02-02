@@ -48,7 +48,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        detectNum = InventoryManager.Instance.inventoryPanel.isCursorOnQuickSlot == true ? 6 : 0;
+        detectNum = InventoryManager.Instance.inventoryPanel.isCursorOnQuickSlot == true ? 2 : 0;
 
         if (isSelected)
         {
