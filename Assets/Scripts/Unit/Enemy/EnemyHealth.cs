@@ -22,7 +22,7 @@ public class EnemyHealth : UnitHealth
         hp = initHP;
     }
 
-    public override void TakeHit(int damage)
+    public override void TakeHit(float damage)
     {
         if (isDead)
             return;

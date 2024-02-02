@@ -8,17 +8,18 @@ public class PlayerHealth : UnitHealth
     private PlayerData playerData;
     public bool isInvincible;
 
+    [HideInInspector]
+    public Animator anim;
     private Collider coll;
     private PlayerMover mover;
     private SwordAttacker attacker;
-    private Animator anim;
 
     private void Awake()
     {
-        mover = GetComponent<PlayerMover>();
-        attacker = GetComponent<SwordAttacker>();
         anim = GetComponentInChildren<Animator>();
         coll = GetComponent<Collider>();
+        mover = GetComponent<PlayerMover>();
+        attacker = GetComponent<SwordAttacker>();
     }
 
     protected override void OnEnable()
@@ -32,7 +33,7 @@ public class PlayerHealth : UnitHealth
         isInvincible = false;
     }
 
-    public override void TakeHit(int damage)
+    public override void TakeHit(float damage)
     {
         if (isDead || isInvincible)
             return;
@@ -40,9 +41,33 @@ public class PlayerHealth : UnitHealth
         base.TakeHit(damage);
     }
 
-    public override void RestoreHP(int amount)
+    public void RestoreHP(float amount, float during)
     {
-        base.RestoreHP(amount);
+        if (isDead)
+            return;
+
+        if (HP <= initHP)
+        {
+            StartCoroutine(RestoreRoutine(amount, during));
+        }
+    }
+
+    private IEnumerator RestoreRoutine(float amount, float during)
+    {
+        float curTime = 0;
+
+        while (curTime < during)
+        {
+            HP += amount * Time.deltaTime;
+
+            if (HP >= initHP)
+            {
+                HP = initHP;
+                yield break;
+            }
+            curTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     public override void Die()

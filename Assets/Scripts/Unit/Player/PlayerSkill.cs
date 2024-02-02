@@ -42,7 +42,7 @@ public class PlayerSkill : MonoBehaviour
 
     public void ActivateSkill(SkillData skillData)
     {
-        anim.SetTrigger(skillData.AnimationName);
+        anim.SetTrigger(skillData.animationName);
         anim.SetLayerWeight(1, 0);
     }
 

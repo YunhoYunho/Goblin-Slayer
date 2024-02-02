@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3eee4ba5306c674bb242e756dd6e4eb, type: 3}
-  m_Name: HPPortion
+  m_Name: SpeedPotion
   m_EditorClassIdentifier: 
-  type: 1
-  itemName: "HP \uD3EC\uC158"
-  image: {fileID: 21300000, guid: d61276d76b2ee8643911990f5318f914, type: 3}
+  itemType: 1
+  potionType: 1
+  itemName: "Speed \uD3EC\uC158"
+  image: {fileID: 21300000, guid: e7ef532ce6da0e441ae57c7c4d43dea8, type: 3}
   isStackable: 1
   itemCost: 20
-  itemAbilityValue: 10
+  abilityValue: 1.5
+  during: 10

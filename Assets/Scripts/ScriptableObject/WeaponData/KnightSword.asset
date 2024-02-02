@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3eee4ba5306c674bb242e756dd6e4eb, type: 3}
   m_Name: KnightSword
   m_EditorClassIdentifier: 
-  type: 0
+  itemType: 0
+  potionType: 2
   itemName: Knight Sword
   image: {fileID: 21300000, guid: 9234871c04c5c9d42abd7bd385990639, type: 3}
   isStackable: 0
   itemCost: 100
-  itemAbilityValue: 30
+  abilityValue: 50
+  during: 0

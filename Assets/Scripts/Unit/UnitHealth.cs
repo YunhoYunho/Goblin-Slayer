@@ -6,12 +6,12 @@ using UnityEngine.Events;
 public abstract class UnitHealth : MonoBehaviour, IHittable
 {
     [SerializeField]
-    protected int initHP;
+    protected float initHP;
     [SerializeField]
-    protected int hp;
-    public int HP { get { return hp; } protected set { hp = value; OnHPChanged?.Invoke(hp); } }
+    protected float hp;
+    public float HP { get { return hp; } protected set { hp = value; OnHPChanged?.Invoke(hp); } }
     public bool isDead { get; protected set; }
-    public UnityEvent<int> OnHPChanged;
+    public UnityEvent<float> OnHPChanged;
     public UnityEvent OnDied;
 
     protected virtual void OnEnable()
@@ -19,29 +19,13 @@ public abstract class UnitHealth : MonoBehaviour, IHittable
         isDead = false;
     }
 
-    public virtual void TakeHit(int damage)
+    public virtual void TakeHit(float damage)
     {
         HP -= damage;
 
         if (HP <= 0 && !isDead)
         {
             Die();
-        }
-    }
-
-    public virtual void RestoreHP(int amount)
-    {
-        if (isDead)
-            return;
-
-        if (HP <= initHP)
-        {
-            HP += amount;
-
-            if (HP > initHP)
-            {
-                HP = initHP;
-            }
         }
     }
 

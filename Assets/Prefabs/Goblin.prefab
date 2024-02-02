@@ -405,10 +405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   weapon: {fileID: 6910758180013995971}
-  weaponData: {fileID: 11400000, guid: c194b479474852a478ed6aa3eb60922e, type: 2}
+  itemData: {fileID: 11400000, guid: 5159ae40506992c41b0f4a7a9ae088f3, type: 2}
   damage: 0
-  timeBetAttack: 0.5
-  lastAttackTime: 0
   attackGizmos: 1
   attackRange: 2
   attackAngle: 60
@@ -705,6 +703,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnAttackSkill:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBuffSkill:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3254017497037137276 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8272943599224061579, guid: 47b41978aba272c47ae5f4a2f7179c61, type: 3}

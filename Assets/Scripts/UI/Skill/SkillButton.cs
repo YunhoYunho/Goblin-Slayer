@@ -4,12 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum KeyType { Q, E }
+public enum SkillKeyType { Q, E }
 
 public class SkillButton : MonoBehaviour
 {
     [SerializeField]
-    private KeyType keyType;
+    private SkillKeyType skillKeyType;
     [SerializeField]
     private PlayerSkill player;
     [SerializeField]
@@ -23,22 +23,22 @@ public class SkillButton : MonoBehaviour
 
     private void Start()
     {
-        skillImage.sprite = skillData.Icon;
+        skillImage.sprite = skillData.icon;
         coolTimeImage.fillAmount = 0;
         coolTimeText.text = "";
     }
 
     private void Update()
     {
-        switch (keyType)
+        switch (skillKeyType)
         {
-            case KeyType.Q:
+            case SkillKeyType.Q:
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
                     OnClickedSkillButton();
                 }
                 break;
-            case KeyType.E:
+            case SkillKeyType.E:
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     OnClickedSkillButton();
@@ -58,7 +58,7 @@ public class SkillButton : MonoBehaviour
 
     private IEnumerator StartCoolTime()
     {
-        float tick = 1f / skillData.CoolTime;
+        float tick = 1f / skillData.coolTime;
         float curTime = 0;
 
         coolTimeImage.fillAmount = 1;
@@ -68,7 +68,7 @@ public class SkillButton : MonoBehaviour
             coolTimeImage.fillAmount = Mathf.Lerp(1, 0, curTime);
             curTime += (Time.deltaTime * tick);
 
-            float remainTime = skillData.CoolTime * (1 - curTime);
+            float remainTime = skillData.coolTime * (1 - curTime);
             coolTimeText.text = remainTime.ToString("0");
             yield return null;
         }

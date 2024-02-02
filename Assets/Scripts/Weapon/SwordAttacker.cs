@@ -10,9 +10,9 @@ public class SwordAttacker : MonoBehaviour
     [SerializeField]
     private Weapon weapon;
     [SerializeField]
-    private WeaponData weaponData;
+    private ItemData itemData;
     [SerializeField]
-    private int damage;
+    private float damage;
 
     [Space]
 
@@ -34,7 +34,7 @@ public class SwordAttacker : MonoBehaviour
 
     private void OnEnable()
     {
-        damage = weaponData.damage;
+        damage = itemData.abilityValue;
     }
 
     public void Attack()

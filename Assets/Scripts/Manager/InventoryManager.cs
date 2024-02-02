@@ -101,6 +101,31 @@ public class InventoryManager : SingleTon<InventoryManager>
         }
     }
 
+    public void UseItem(InventoryItem itemInSlot)
+    {
+        if (null != itemInSlot)
+        {
+            if (true == itemInSlot.item.isStackable)
+            {
+                itemInSlot.count--;
+
+                if (itemInSlot.count <= 0)
+                {
+                    Destroy(itemInSlot.gameObject);
+                    selectedSlot = -1;
+                }
+                else
+                {
+                    itemInSlot.UpdateCount();
+                }
+            }
+            else
+            {
+                Destroy(itemInSlot.gameObject);
+            }
+        }
+    }
+
     public ItemData GetSelectedItem(bool isUsed)
     {
         if (selectedSlot >= 0)
