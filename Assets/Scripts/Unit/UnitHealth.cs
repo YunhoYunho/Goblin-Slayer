@@ -31,6 +31,9 @@ public abstract class UnitHealth : MonoBehaviour, IHittable
 
     public virtual void Die()
     {
+        if (HP != 0)
+            HP = 0;
+
         OnDied?.Invoke();
         isDead = true;
     }

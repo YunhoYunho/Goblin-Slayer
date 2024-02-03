@@ -20,6 +20,8 @@ public class SkillButton : MonoBehaviour
     private Image coolTimeImage;
     [SerializeField]
     private TextMeshProUGUI coolTimeText;
+    [SerializeField]
+    private TimerSlider timerSlider;
 
     private void Start()
     {
@@ -52,11 +54,17 @@ public class SkillButton : MonoBehaviour
         if (coolTimeImage.fillAmount > 0)
             return;
 
+        if (skillKeyType == SkillKeyType.E)
+        {
+            timerSlider.SetMaxValue(skillData.coolTime);
+            timerSlider.StartDuration(skillData.coolTime);
+        }
+
         player.ActivateSkill(skillData);
-        StartCoroutine(StartCoolTime());
+        StartCoroutine(StartCoolTimeRoutine());
     }
 
-    private IEnumerator StartCoolTime()
+    private IEnumerator StartCoolTimeRoutine()
     {
         float tick = 1f / skillData.coolTime;
         float curTime = 0;

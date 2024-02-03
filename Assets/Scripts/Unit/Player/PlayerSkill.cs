@@ -20,6 +20,8 @@ public class PlayerSkill : MonoBehaviour
 
     [Header("BuffSkill")]
     [SerializeField]
+    private SkillData skillData;
+    [SerializeField]
     private ParticleSystem healBuffEffect;
     [SerializeField]
     private ParticleSystem duringEffect;
@@ -67,28 +69,28 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(EffectRoutine(jumpAttackEffect));
+        StartCoroutine(EffectRoutine(jumpAttackEffect, 1.9f));
     }
 
     public void OnBuffSkill()
     {
         StartCoroutine(UnDamageableRoutine());
-        StartCoroutine(EffectRoutine(healBuffEffect));
+        StartCoroutine(EffectRoutine(healBuffEffect, 2f));
     }
 
     private IEnumerator UnDamageableRoutine()
     {
         health.isInvincible = true;
         duringEffect.Play();
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(skillData.coolTime - 2f);
         health.isInvincible = false;
         duringEffect.Stop();
     }
 
-    private IEnumerator EffectRoutine(ParticleSystem particleSystem)
+    private IEnumerator EffectRoutine(ParticleSystem particleSystem, float during)
     {
         particleSystem.Play();
-        yield return new WaitForSeconds(1.9f);
+        yield return new WaitForSeconds(during);
         anim.SetLayerWeight(1, 1);
         particleSystem.Stop();
     }

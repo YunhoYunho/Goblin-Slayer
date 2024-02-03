@@ -15,6 +15,8 @@ public class ItemButton : MonoBehaviour
     private ItemData itemValue;
     [SerializeField]
     private InventoryItem itemInSlot;
+    [SerializeField]
+    private TimerSlider timerSlider;
 
     private void Update()
     {
@@ -52,6 +54,8 @@ public class ItemButton : MonoBehaviour
                     InventoryManager.Instance.UseItem(itemInSlot);
                     break;
                 case PotionType.AttackSpped:
+                    timerSlider.SetMaxValue(itemValue.during);
+                    timerSlider.StartDuration(itemValue.during);
                     StartCoroutine(AttakSpeedRoutine(itemValue.abilityValue, itemValue.during));
                     InventoryManager.Instance.UseItem(itemInSlot);
                     break;
