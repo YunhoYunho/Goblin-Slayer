@@ -33,28 +33,4 @@ public class GameManager : SingleTon<GameManager>
         freeLookJoyStick.Priority = isMobile ? 1 : 0;
         freeLookKeyBoard.Priority = !isMobile ? 1 : 0;
     }
-
-    public void Pause()
-    {
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public void Resume()
-    {
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    public void GameRestart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void Exit()
-    {
-        Application.Quit();
-    }
 }
