@@ -29,6 +29,9 @@ public class SoundManager : SingleTon<SoundManager>
 
     public void PlaySFX(SFX sfx)
     {
+        if (sfxSources.Length == 0)
+            return;
+
         index = (index + 1) % sfxSources.Length;
         sfxSources[index].PlayOneShot(sfxClips[(int)sfx]);
     }

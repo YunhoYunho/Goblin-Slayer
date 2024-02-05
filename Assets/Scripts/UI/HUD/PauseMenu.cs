@@ -7,12 +7,13 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     private GameObject optionPanel;
-
-    private const string sceneName = "LoadingScene";
+    [SerializeField]
+    private AudioSource bgmSource;
 
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene(sceneName);
+        bgmSource.Stop();
+        LoadingSceneController.LoadScene("GameScene");
     }
 
     public void OnClickPauseMenu()

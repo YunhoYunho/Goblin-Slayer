@@ -6,18 +6,22 @@ public class EnemyHealth : UnitHealth
 {
     [SerializeField]
     private EnemyData enemyData;
+    [SerializeField]
+    private GameObject gemPrefab;
 
+    private GetPoolObject getPool;
     private Animator anim;
 
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        getPool = GameObject.Find("GetPoolObject").GetComponent<GetPoolObject>();
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
-
+        
         initHP = enemyData.hp;
         hp = initHP;
     }
@@ -35,6 +39,8 @@ public class EnemyHealth : UnitHealth
         base.Die();
 
         anim.SetTrigger("OnDeath");
+
+        getPool.GetPool("Gem", transform.position, transform.rotation);
 
         initHP = enemyData.hp;
         hp = enemyData.hp;

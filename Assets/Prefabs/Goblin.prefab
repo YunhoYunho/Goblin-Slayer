@@ -375,6 +375,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   enemyData: {fileID: 11400000, guid: 79ce5e1fa71aa9d498ece7c1afcb47cc, type: 2}
+  gemPrefab: {fileID: 1904710357468924963, guid: 0becf314a25f3c64aac2cf86c67cc78c, type: 3}
 --- !u!114 &6910758181232892714
 MonoBehaviour:
   m_ObjectHideFlags: 0
