@@ -52,6 +52,7 @@ public class ItemButton : MonoBehaviour
                 case PotionType.HP:
                     player.RestoreHP(itemValue.abilityValue, itemValue.during);
                     InventoryManager.Instance.UseItem(itemInSlot);
+                    SoundManager.Instance.PlaySFX(SFX.RestoreHP);
                     break;
                 case PotionType.AttackSpped:
                     timerSlider.SetMaxValue(itemValue.during);

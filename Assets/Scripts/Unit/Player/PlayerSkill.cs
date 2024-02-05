@@ -70,6 +70,7 @@ public class PlayerSkill : MonoBehaviour
             }
         }
         StartCoroutine(EffectRoutine(jumpAttackEffect, 1.9f));
+        SoundManager.Instance.PlaySFX(SFX.EarthQuake);
     }
 
     public void OnBuffSkill()

@@ -98,6 +98,11 @@ public class SwordAttacker : MonoBehaviour
         weapon.DisableWeapon();
     }
 
+    public void OnAttackSound()
+    {
+        SoundManager.Instance.PlaySFX(SFX.Attack);
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (attackGizmos)
