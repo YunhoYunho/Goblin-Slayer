@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyType { Normal, Boss }
+
 public class EnemyHealth : UnitHealth
 {
+    [SerializeField]
+    private EnemyType enemyType;
     [SerializeField]
     private EnemyData enemyData;
     [SerializeField]
@@ -40,12 +44,15 @@ public class EnemyHealth : UnitHealth
 
         anim.SetTrigger("OnDeath");
 
-        getPool.GetPool("Gem", transform.position, transform.rotation);
+        if (enemyType == EnemyType.Normal)
+        {
+            getPool.GetPool("Gem", transform.position, transform.rotation);
 
-        initHP = enemyData.hp;
-        hp = enemyData.hp;
+            initHP = enemyData.hp;
+            hp = enemyData.hp;
 
-        StartCoroutine(ReturnToPool());
+            StartCoroutine(ReturnToPool());
+        }
     }
 
     private IEnumerator ReturnToPool()

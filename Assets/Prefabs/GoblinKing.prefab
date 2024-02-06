@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &778024763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 778024765}
+  - component: {fileID: 778024764}
+  m_Layer: 0
+  m_Name: FOV
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &778024765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778024763}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.60099983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7591628194613656946}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &778024764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778024763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5388375a2aab24bb60dbe1742c4a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 5
+  angle: 60
+  isFovGizmos: 1
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  obstableMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &169171573913939792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1538,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7353351975570925845}
+  - {fileID: 778024765}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1542,7 +1597,9 @@ MonoBehaviour:
   OnDied:
     m_PersistentCalls:
       m_Calls: []
+  enemyType: 1
   enemyData: {fileID: 11400000, guid: bcc558566653934469dbe5cfa14f3617, type: 2}
+  gemPrefab: {fileID: 0}
 --- !u!114 &3604770090889869158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1557,8 +1614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   enemyData: {fileID: 11400000, guid: bcc558566653934469dbe5cfa14f3617, type: 2}
-  traceDist: 100
-  attackDist: 4
+  fov: {fileID: 778024764}
 --- !u!114 &4354512788494244758
 MonoBehaviour:
   m_ObjectHideFlags: 0

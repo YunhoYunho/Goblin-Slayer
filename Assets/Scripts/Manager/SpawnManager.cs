@@ -6,7 +6,9 @@ using UnityEngine;
 public class SpawnManager : SingleTon<SpawnManager>
 {
     [SerializeField]
-    private GetPoolObject getPool;
+    private GameObject bossPrefab;
+    [SerializeField]
+    private GameObject bossHPBar;
     [SerializeField]
     private Transform[] spawnPoints;
     [SerializeField]
@@ -15,6 +17,8 @@ public class SpawnManager : SingleTon<SpawnManager>
     private TextMeshProUGUI fightTimeText;
     [SerializeField]
     private TextMeshProUGUI waitTimeText;
+    [SerializeField]
+    private TextMeshProUGUI bossTimeText;
     [Space]
     [SerializeField]
     private float remainTime;
@@ -24,23 +28,31 @@ public class SpawnManager : SingleTon<SpawnManager>
     private float spawnDuration;
     [SerializeField]
     private float waitDuration;
+    [SerializeField]
+    private int waveCount = 0;
 
+    public bool isSpawnStart = false;
     private float timer = 0;
     private int spawnPointNum = 0;
+    private GetPoolObject getPool;
     private List<GameObject> spawnGoblinList = new List<GameObject>();
 
     private void Start()
     {
         getPool = GameObject.Find("GetPoolObject").GetComponent<GetPoolObject>();
         spawnPointNum = 0;
+        waveCount = 0;
         StartCoroutine(SpawnRoutine());
         StartCoroutine(TimerRoutine());
     }
 
     private IEnumerator SpawnRoutine()
     {
-        while (true)
+        yield return new WaitUntil(() => isSpawnStart);
+
+        while (waveCount < 3)
         {
+            waveCount++;
             timer = 0;
             while (timer < spawnDuration)
             {
@@ -48,19 +60,26 @@ public class SpawnManager : SingleTon<SpawnManager>
                     spawnPointNum = 0;
 
                 spawnGoblinList.Add(getPool.GetPool("Goblin", spawnPoints[spawnPointNum].position, spawnPoints[spawnPointNum].rotation));
-
                 spawnPointNum++;
                 yield return new WaitForSeconds(spawnInterval);
                 timer += spawnInterval;
             }
             ClearGoblins();
+            yield return new WaitForSeconds(1.5f);
             yield return new WaitForSeconds(waitDuration);
+        }
+
+        if (waveCount >= 3)
+        {
+            SpawnBoss();
         }
     }
 
     private IEnumerator TimerRoutine()
-    { 
-        while (true)
+    {
+        yield return new WaitUntil(() => isSpawnStart);
+
+        while (waveCount < 3)
         {
             yield return StartCoroutine(UpdateTimeRoutine(spawnDuration, true));
             yield return new WaitForSeconds(1.5f);
@@ -92,5 +111,13 @@ public class SpawnManager : SingleTon<SpawnManager>
             }
         }
         spawnGoblinList.Clear();
+    }
+
+    private void SpawnBoss()
+    {
+        bossPrefab.SetActive(true);
+        StopCoroutine(TimerRoutine());
+        waitTimeText.gameObject.SetActive(false);
+        bossTimeText.gameObject.SetActive(true);
     }
 }

@@ -7,16 +7,26 @@ public class Gem : MonoBehaviour
     [SerializeField]
     private float rotateSpeed;
 
+    private Collider coll;
     private Coroutine rotateRoutine;
+    private Coroutine getRoutine;
+
+    private void Awake()
+    {
+        coll = GetComponent<Collider>();
+    }
 
     private void OnEnable()
     {
+        coll.isTrigger = false;
         rotateRoutine = StartCoroutine(RotatingRoutine());
+        getRoutine = StartCoroutine(GetRoutine());
     }
 
     private void OnDisable()
     {
         StopCoroutine(rotateRoutine);
+        StopCoroutine(getRoutine);
     }
 
     private IEnumerator RotatingRoutine()
@@ -26,6 +36,12 @@ public class Gem : MonoBehaviour
             transform.Rotate(0f, rotateSpeed * Time.deltaTime, 0f);
             yield return null;
         }
+    }
+
+    private IEnumerator GetRoutine()
+    {
+        yield return new WaitForSeconds(2f);
+        coll.isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other)

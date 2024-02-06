@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &373968315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 373968317}
+  - component: {fileID: 373968316}
+  m_Layer: 0
+  m_Name: FOV
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &373968317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373968315}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6910758181232892713}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &373968316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373968315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5388375a2aab24bb60dbe1742c4a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 2
+  angle: 60
+  isFovGizmos: 1
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  obstableMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &511327336
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 6910758181232892715}
+  hpImage: {fileID: 2850202761346596205}
 --- !u!1 &6650293974676676534
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +371,7 @@ Transform:
   m_Children:
   - {fileID: 6910758181326460955}
   - {fileID: 511327337}
+  - {fileID: 373968317}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -374,6 +430,7 @@ MonoBehaviour:
   OnDied:
     m_PersistentCalls:
       m_Calls: []
+  enemyType: 0
   enemyData: {fileID: 11400000, guid: 79ce5e1fa71aa9d498ece7c1afcb47cc, type: 2}
   gemPrefab: {fileID: 1904710357468924963, guid: 0becf314a25f3c64aac2cf86c67cc78c, type: 3}
 --- !u!114 &6910758181232892714
@@ -390,8 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   enemyData: {fileID: 11400000, guid: 79ce5e1fa71aa9d498ece7c1afcb47cc, type: 2}
-  traceDist: 100
-  attackDist: 4
+  fov: {fileID: 373968316}
 --- !u!114 &6910758181232892716
 MonoBehaviour:
   m_ObjectHideFlags: 0

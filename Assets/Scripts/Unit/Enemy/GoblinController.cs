@@ -13,9 +13,7 @@ public class GoblinController : MonoBehaviour
     [SerializeField]
     private EnemyData enemyData;
     [SerializeField]
-    private float traceDist;
-    [SerializeField]
-    private float attackDist;
+    private FieldOfView fov;
 
     private EnemyHealth health;
     private NavMeshAgent agent;
@@ -102,17 +100,20 @@ public class GoblinController : MonoBehaviour
         Vector3 offset = playerTr.position - transform.position;
         float dist = offset.sqrMagnitude;
 
-        if (dist <= attackDist * attackDist)
+        if (fov.target != null)
         {
-            state = State.Attack;
-        }
-        else if (dist <= traceDist * traceDist)
-        {
-            state = State.Trace;
+            if (dist <= fov.range * fov.range)
+            {
+                state = State.Attack;
+            }
+            else
+            {
+                state = State.Trace;
+            }
         }
         else
         {
-            state = State.Idle;
+            state = State.Trace;
         }
     }
 
