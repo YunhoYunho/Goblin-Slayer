@@ -11,27 +11,14 @@ public class SpawnManager : SingleTon<SpawnManager>
     private GameObject bossHPBar;
     [SerializeField]
     private Transform[] spawnPoints;
-    [SerializeField]
-    private TextMeshProUGUI timeRemainText;
-    [SerializeField]
-    private TextMeshProUGUI fightTimeText;
-    [SerializeField]
-    private TextMeshProUGUI waitTimeText;
-    [SerializeField]
-    private TextMeshProUGUI bossTimeText;
     [Space]
     [SerializeField]
-    private float remainTime;
-    [SerializeField]
     private float spawnInterval;
-    [SerializeField]
-    private float spawnDuration;
-    [SerializeField]
-    private float waitDuration;
-    [SerializeField]
-    private int waveCount = 0;
-
+    public float spawnDuration;
+    public float waitDuration;
+    public int waveCount = 0;
     public bool isSpawnStart = false;
+
     private float timer = 0;
     private int spawnPointNum = 0;
     private GetPoolObject getPool;
@@ -42,8 +29,8 @@ public class SpawnManager : SingleTon<SpawnManager>
         getPool = GameObject.Find("GetPoolObject").GetComponent<GetPoolObject>();
         spawnPointNum = 0;
         waveCount = 0;
+        bossPrefab.SetActive(false);
         StartCoroutine(SpawnRoutine());
-        StartCoroutine(TimerRoutine());
     }
 
     private IEnumerator SpawnRoutine()
@@ -75,31 +62,6 @@ public class SpawnManager : SingleTon<SpawnManager>
         }
     }
 
-    private IEnumerator TimerRoutine()
-    {
-        yield return new WaitUntil(() => isSpawnStart);
-
-        while (waveCount < 3)
-        {
-            yield return StartCoroutine(UpdateTimeRoutine(spawnDuration, true));
-            yield return new WaitForSeconds(1.5f);
-            yield return StartCoroutine(UpdateTimeRoutine(waitDuration, false));
-        }
-    }
-
-    private IEnumerator UpdateTimeRoutine(float duration, bool isSpawnTime)
-    {
-        fightTimeText.gameObject.SetActive(isSpawnTime);
-        waitTimeText.gameObject.SetActive(!isSpawnTime);
-        remainTime = 0;
-        while (remainTime < duration)
-        {
-            timeRemainText.text = (duration - remainTime).ToString("0");
-            remainTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-
     private void ClearGoblins()
     {
         foreach (var goblin in spawnGoblinList)
@@ -115,9 +77,7 @@ public class SpawnManager : SingleTon<SpawnManager>
 
     private void SpawnBoss()
     {
+        bossHPBar.SetActive(true);
         bossPrefab.SetActive(true);
-        StopCoroutine(TimerRoutine());
-        waitTimeText.gameObject.SetActive(false);
-        bossTimeText.gameObject.SetActive(true);
     }
 }

@@ -161,7 +161,6 @@ public class GoblinController : MonoBehaviour
         {
             colliders[i].enabled = false;
         }
-
         agent.isStopped = true;
         agent.enabled = false;
         anim.SetBool("IsAttack", false);
