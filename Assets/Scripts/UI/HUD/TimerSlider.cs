@@ -7,6 +7,7 @@ public class TimerSlider : MonoBehaviour
 {
     [SerializeField]
     private CanvasGroup sliderGroup;
+    public ItemButton itemButton;
 
     private Slider slider;
     private Coroutine durationRoutine;

@@ -42,7 +42,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             itemInSlot.SetParent(droppedItem.parentAfterDrag);
             itemInSlot.position = droppedItem.parentAfterDrag.position;
         }
-
         droppedItem.parentAfterDrag = transform;
     }
 
@@ -58,7 +57,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         {
             InventoryManager.Instance.ChangeSelectedSlot(transform.GetSiblingIndex() + detectNum);
         }
-
         detectNum = 0;
     }
 }

@@ -17,6 +17,8 @@ public class ItemButton : MonoBehaviour
     private InventoryItem itemInSlot;
     [SerializeField]
     private TimerSlider timerSlider;
+    [SerializeField]
+    private ParticleSystem healingEffect;
 
     private void Update()
     {
@@ -52,6 +54,7 @@ public class ItemButton : MonoBehaviour
                 case PotionType.HP:
                     player.RestoreHP(itemValue.abilityValue, itemValue.during);
                     InventoryManager.Instance.UseItem(itemInSlot);
+                    healingEffect.Play();
                     SoundManager.Instance.PlaySFX(SFX.RestoreHP);
                     break;
                 case PotionType.AttackSpped:
