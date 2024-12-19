@@ -27,6 +27,8 @@ public class PlayerMover : MonoBehaviour
     private CharacterController controller;
     private float moveY;
     private bool isMove;
+    private const float gravity = 9.81f;
+    private Vector3 velocity;
 
     private void Awake()
     {
@@ -53,15 +55,32 @@ public class PlayerMover : MonoBehaviour
         isMove = moveInput.magnitude != 0;
         anim.SetBool("IsMove", isMove);
 
+        if (controller.isGrounded)
+        {
+            velocity.y = -0.5f;
+            if (Input.GetButtonDown("Jump"))
+            {
+                velocity.y = jumpSpeed;
+            }
+        }
+        else
+        {
+            velocity.y -= gravity * Time.deltaTime;
+        }
+
         if (isMove)
         {
             Vector3 forwardVec = new Vector3(cam.transform.forward.x, 0f, cam.transform.forward.z).normalized;
             Vector3 rightVec = new Vector3(cam.transform.right.x, 0f, cam.transform.right.z).normalized;
             Vector3 moveVec = forwardVec * moveInput.z + rightVec * moveInput.x;
-            controller.Move(moveVec * moveSpeed * Time.deltaTime);
+            controller.Move((moveVec * moveSpeed + velocity) * Time.deltaTime);
 
             Quaternion lookRotation = Quaternion.LookRotation(moveVec);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.2f);
+        }
+        else
+        {
+            controller.Move(velocity * Time.deltaTime);
         }
     }
 

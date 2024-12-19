@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e267e0475c2f2944391d201a87ed605f, type: 3}
   m_Name: GoblinKing Data
   m_EditorClassIdentifier: 
-  hp: 200
+  hp: 500
   speed: 15
-  traceDist: 30
-  attackDist: 20

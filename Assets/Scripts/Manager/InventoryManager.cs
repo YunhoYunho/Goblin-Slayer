@@ -170,8 +170,6 @@ public class InventoryManager : SingleTon<InventoryManager>
         {
             inventorySlots[selectedSlot].NotSelected();
         }
-
-        inventorySlots[value].Selected();
         selectedSlot = value;
     }
 

@@ -154,6 +154,10 @@ public class GoblinController : MonoBehaviour
 
     private void DieState()
     {
+        agent.isStopped = true;
+        agent.enabled = false;
+        anim.SetBool("IsAttack", false);
+
         health.Die();
 
         Collider[] colliders = GetComponents<Collider>();
@@ -161,8 +165,5 @@ public class GoblinController : MonoBehaviour
         {
             colliders[i].enabled = false;
         }
-        agent.isStopped = true;
-        agent.enabled = false;
-        anim.SetBool("IsAttack", false);
     }
 }

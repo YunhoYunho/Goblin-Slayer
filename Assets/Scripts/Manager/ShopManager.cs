@@ -54,7 +54,7 @@ public class ShopManager : SingleTon<ShopManager>
     {
         for (int i = 0; i < sellingItems.Length; i++)
         {
-            if (coins >= sellingItems[i].itemCost || true == InventoryManager.Instance.HasEmptySlot())
+            if (coins >= sellingItems[i].itemCost && true == InventoryManager.Instance.HasEmptySlot())
                 purchaseButtons[i].interactable = true;
             else
                 purchaseButtons[i].interactable = false;

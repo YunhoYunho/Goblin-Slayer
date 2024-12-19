@@ -51,6 +51,7 @@ public class Gem : MonoBehaviour
             int money = Random.Range(10, 51);
             ShopManager.Instance.coins += money;
             ShopManager.Instance.UpdateCoin();
+            ShopManager.Instance.UpdatePurchaseButton();
             PoolManager.Instance.Release(gameObject);
         }
     }

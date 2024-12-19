@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PoolManager : SingleTon<PoolManager>
 {
@@ -47,6 +48,11 @@ public class PoolManager : SingleTon<PoolManager>
             instance.transform.position = position;
             instance.transform.rotation = rotation;
             instance.transform.parent = null;
+
+            NavMeshAgent agent = instance.GetComponent<NavMeshAgent>();
+            if (null != agent)
+                agent.Warp(position);
+            
             return instance;
         }
         else

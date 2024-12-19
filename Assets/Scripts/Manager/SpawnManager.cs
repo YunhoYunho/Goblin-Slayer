@@ -39,11 +39,12 @@ public class SpawnManager : SingleTon<SpawnManager>
 
         while (waveCount < 3)
         {
+            spawnPointNum = 0;
             waveCount++;
             timer = 0;
             while (timer < spawnDuration)
             {
-                if (spawnPointNum == spawnPoints.Length - 1)
+                if (spawnPointNum >= spawnPoints.Length)
                     spawnPointNum = 0;
 
                 spawnGoblinList.Add(getPool.GetPool("Goblin", spawnPoints[spawnPointNum].position, spawnPoints[spawnPointNum].rotation));

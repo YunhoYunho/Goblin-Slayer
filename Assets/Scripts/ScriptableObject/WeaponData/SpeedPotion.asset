@@ -16,7 +16,7 @@ MonoBehaviour:
   potionType: 1
   itemName: "Speed \uD3EC\uC158"
   image: {fileID: 21300000, guid: e7ef532ce6da0e441ae57c7c4d43dea8, type: 3}
-  isStackable: 1
+  isStackable: 0
   itemCost: 20
   abilityValue: 1.5
   during: 10
